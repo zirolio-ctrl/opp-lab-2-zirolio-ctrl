@@ -1,0 +1,205 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+hide empty members
+
+class "Application" as AvApplication <<Avalonia>>
+class "Window" as AvWindow <<Avalonia>>
+interface "IDataTemplate" as AvIDataTemplate <<Avalonia>>
+abstract class "ObservableObject" as ObservableObject <<CommunityToolkit.Mvvm>>
+
+class Program <<sealed>> {
+    + {static} Main(args : string[])
+    + {static} BuildAvaloniaApp() : AppBuilder
+}
+
+class App {
+    + Initialize()
+    + OnFrameworkInitializationCompleted()
+}
+
+class ViewLocator {
+    + Build(param : object) : Control
+    + Match(data : object) : bool
+}
+
+package "Views" {
+    class MainWindow {
+        - _canClose : bool
+        + MainWindow()
+        # OnClosing(e : WindowClosingEventArgs)
+    }
+}
+
+package "ViewModels" {
+    abstract class ViewModelBase
+
+    class MainViewModel {
+        - _dialogs : IDialogService
+        - _drive : GoogleDriveService
+        - _selectedFilePath : string
+        - _selectedStrategy : string
+        - _selectedFaculty : string
+        - _selectedCourse : string
+        - _selectedRoom : string
+        - _exportFormat : string
+        - _exportTarget : string
+        - _statusMessage : string
+        + SelectedFilePath : string
+        + SelectedStrategy : string
+        + SelectedFaculty : string
+        + SelectedCourse : string
+        + SelectedRoom : string
+        + ExportFormat : string
+        + ExportTarget : string
+        + StatusMessage : string
+        + Faculties : ObservableCollection<string>
+        + Courses : ObservableCollection<string>
+        + Rooms : ObservableCollection<string>
+        + SearchResults : ObservableCollection<StudentRecord>
+        + Strategies : string[]
+        + ExportFormats : string[]
+        + ExportTargets : string[]
+        + OpenXmlCommand : IAsyncRelayCommand
+        + TransformToHtmlCommand : IAsyncRelayCommand
+        + SearchCommand : IRelayCommand
+        + ClearCommand : IRelayCommand
+        + ExportCommand : IAsyncRelayCommand
+        + ExitCommand : IRelayCommand
+        + MainViewModel(dialogs : IDialogService)
+        - OpenXmlAsync() : Task
+        - LoadXmlData(path : string)
+        - {static} Fill(target : ObservableCollection<string>, values : IEnumerable<string>)
+        - TransformToHtmlAsync() : Task
+        - Search()
+        - Clear()
+        - CanExport() : bool
+        - ExportAsync() : Task
+        - Exit()
+        + ConfirmExitAsync() : Task<bool>
+    }
+}
+
+package "Models" {
+    class StudentRecord {
+        + FullName : string
+        + Faculty : string
+        + Department : string
+        + Course : string
+        + RoomNumber : string
+        + Block : string
+        + SettlementDate : string
+    }
+}
+
+package "Services" {
+    interface IDialogService {
+        + PickXmlFileAsync() : Task<string>
+        + PickSaveFileAsync(suggestedName : string, ext : string) : Task<string>
+        + ConfirmAsync(title : string, message : string) : Task<bool>
+        + CloseMainWindow()
+    }
+
+    class DialogService <<sealed>> {
+        - {static} Main : Window
+        + PickXmlFileAsync() : Task<string>
+        + PickSaveFileAsync(suggestedName : string, ext : string) : Task<string>
+        + ConfirmAsync(title : string, message : string) : Task<bool>
+        + CloseMainWindow()
+    }
+
+    interface IXmlSearchStrategy {
+        + Search(filePath : string, faculty : string, course : string, room : string) : List<StudentRecord>
+    }
+    class SaxSearchStrategy {
+        + Search(filePath, faculty, course, room) : List<StudentRecord>
+    }
+    class DomSearchStrategy {
+        + Search(filePath, faculty, course, room) : List<StudentRecord>
+    }
+    class LinqSearchStrategy {
+        + Search(filePath, faculty, course, room) : List<StudentRecord>
+    }
+
+    interface IExportFormat {
+        + Extension : string
+        + MimeType : string
+        + Build(items : IEnumerable<StudentRecord>) : string
+    }
+    class XmlExportFormat <<sealed>> {
+        + Extension : string
+        + MimeType : string
+        + Build(items : IEnumerable<StudentRecord>) : string
+        - {static} Attr(name : string, value : string) : XAttribute
+    }
+    class HtmlExportFormat <<sealed>> {
+        + Extension : string
+        + MimeType : string
+        + Build(items : IEnumerable<StudentRecord>) : string
+    }
+    class ExportFormatFactory <<static>> {
+        + {static} Create(format : string) : IExportFormat
+    }
+
+    class XsltTransformerService {
+        + TransformToHtml(xmlPath : string, xslPath : string, htmlOutputPath : string)
+    }
+
+    class GoogleDriveService <<sealed>> {
+        - {static} SecretPath : string
+        - {static} TokenDir : string
+        - _service : DriveService
+        + {static} IsConfigured : bool
+        - GetServiceAsync(ct : CancellationToken) : Task<DriveService>
+        + UploadAsync(fileName : string, content : string, mimeType : string, ct : CancellationToken) : Task<string>
+    }
+
+    class EventLogger <<sealed>> {
+        - {static} _instance : EventLogger
+        - {static} _lock : object
+        - _logFilePath : string
+        - EventLogger()
+        + {static} Instance : EventLogger
+        + Log(importanceLevel : string, message : string)
+    }
+}
+
+AvApplication <|-- App
+AvIDataTemplate <|.. ViewLocator
+AvWindow <|-- MainWindow
+ObservableObject <|-- ViewModelBase
+ViewModelBase <|-- MainViewModel
+
+IDialogService <|.. DialogService
+IXmlSearchStrategy <|.. SaxSearchStrategy
+IXmlSearchStrategy <|.. DomSearchStrategy
+IXmlSearchStrategy <|.. LinqSearchStrategy
+IExportFormat <|.. XmlExportFormat
+IExportFormat <|.. HtmlExportFormat
+
+Program ..> App : Configure<App>
+App ..> MainWindow : створює
+App ..> MainViewModel : створює
+App ..> DialogService : створює
+ViewLocator ..> ViewModelBase : Match
+
+MainWindow ..> MainViewModel : DataContext,\nConfirmExitAsync()
+MainViewModel --> "1" IDialogService : _dialogs
+MainViewModel --> "1" GoogleDriveService : _drive
+MainViewModel o-- "0..*" StudentRecord : SearchResults
+MainViewModel ..> IXmlSearchStrategy : обирає за\nSelectedStrategy
+MainViewModel ..> SaxSearchStrategy : створює
+MainViewModel ..> DomSearchStrategy : створює
+MainViewModel ..> LinqSearchStrategy : створює
+MainViewModel ..> ExportFormatFactory
+MainViewModel ..> IExportFormat
+MainViewModel ..> XsltTransformerService : створює
+MainViewModel ..> EventLogger
+
+ExportFormatFactory ..> XmlExportFormat : створює
+ExportFormatFactory ..> HtmlExportFormat : створює
+IXmlSearchStrategy ..> StudentRecord
+IExportFormat ..> StudentRecord
+DialogService ..> AvWindow : Main
+EventLogger --> "0..1" EventLogger : _instance
+@enduml

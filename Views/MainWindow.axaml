@@ -1,0 +1,110 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:opp_lab_2_zirolio_ctrl.ViewModels"
+        x:Class="opp_lab_2_zirolio_ctrl.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Інформаційна система «Гуртожиток»"
+        Width="1050" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+        <Border Grid.Row="0" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                Padding="15" CornerRadius="0,0,8,8">
+            <Grid ColumnDefinitions="*, Auto">
+                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <TextBlock Text="🏠" FontSize="20" VerticalAlignment="Center"/>
+                    <TextBlock Text="Обробка XML: Гуртожиток" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                    <Button Content="Відкрити XML" Command="{Binding OpenXmlCommand}" Classes="accent"/>
+                    <Button Content="Конвертувати в HTML" Command="{Binding TransformToHtmlCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Margin="15,10,15,0" Padding="10"
+                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="6">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock FontWeight="SemiBold" Text="Відкритий файл:"/>
+                <TextBlock Text="{Binding SelectedFilePath}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="2" ColumnDefinitions="300, *" Margin="15">
+            <Border Grid.Column="0" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    CornerRadius="8" Padding="15" Margin="0,0,10,0">
+                <ScrollViewer>
+                    <StackPanel Spacing="15">
+                        <TextBlock Text="Параметри пошуку" FontSize="16" FontWeight="SemiBold"/>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Алгоритм (Strategy):" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                            <ComboBox ItemsSource="{Binding Strategies}" SelectedItem="{Binding SelectedStrategy}" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Факультет:" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                            <ComboBox ItemsSource="{Binding Faculties}" SelectedItem="{Binding SelectedFaculty}" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Курс:" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                            <ComboBox ItemsSource="{Binding Courses}" SelectedItem="{Binding SelectedCourse}" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Кімната (Attribute):" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                            <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{DynamicResource CardStrokeColorDefaultBrush}"/>
+
+                        <Button Content="Пошук" Command="{Binding SearchCommand}"
+                                Classes="accent" HorizontalAlignment="Stretch"/>
+                        <Button Content="Очистити" Command="{Binding ClearCommand}"
+                                HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="1" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    CornerRadius="8" Padding="10">
+                <Grid RowDefinitions="Auto, *" RowSpacing="10">
+
+                    <Grid ColumnDefinitions="Auto, *, Auto, Auto, Auto" ColumnSpacing="10">
+                        <TextBlock Text="Результати" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding SearchResults.Count, StringFormat='Знайдено: {0}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="2" Width="90" ItemsSource="{Binding ExportFormats}" SelectedItem="{Binding ExportFormat}"/>
+                        <ComboBox Grid.Column="3" Width="200" ItemsSource="{Binding ExportTargets}" SelectedItem="{Binding ExportTarget}"/>
+                        <Button Grid.Column="4" Content="Зберегти результат"
+                                Command="{Binding ExportCommand}"/>
+                    </Grid>
+
+                    <DataGrid   Grid.Row="1"
+                                ItemsSource="{Binding SearchResults}"
+                                AutoGenerateColumns="False" IsReadOnly="True"
+                                GridLinesVisibility="All"
+                                CanUserResizeColumns="True" CanUserReorderColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="П.І.Б." Binding="{Binding FullName}" Width="2*"/>
+                            <DataGridTextColumn Header="Факультет" Binding="{Binding Faculty}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Кафедра" Binding="{Binding Department}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Курс" Binding="{Binding Course}" Width="0.8*"/>
+                            <DataGridTextColumn Header="Кімната" Binding="{Binding RoomNumber}" Width="0.8*"/>
+                            <DataGridTextColumn Header="Блок" Binding="{Binding Block}" Width="0.8*"/>
+                            <DataGridTextColumn Header="Дата поселення" Binding="{Binding SettlementDate}" Width="1.2*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3" Padding="15,6"
+                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}">
+            <SelectableTextBlock Text="{Binding StatusMessage}" TextTrimming="CharacterEllipsis"/>
+        </Border>
+    </Grid>
+</Window>

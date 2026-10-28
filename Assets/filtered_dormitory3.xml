@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Students>
+  <Student room="120" block="">
+    <FullName>Гриценко Маргарита Юріївна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Менеджмент</Department>
+    <Course>1</Course>
+    <SettlementDate>2026-02-12</SettlementDate>
+  </Student>
+</Students>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Students>
+  <Student room="302" block="">
+    <FullName>Шевченко Тарас Григорович</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Менеджмент</Department>
+    <Course>2</Course>
+    <SettlementDate>2025-09-01</SettlementDate>
+  </Student>
+  <Student room="315a" block="А">
+    <FullName>Ткаченко Ірина Вікторівна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Фінанси і кредит</Department>
+    <Course>2</Course>
+    <SettlementDate>2025-09-01</SettlementDate>
+  </Student>
+  <Student room="402a" block="">
+    <FullName>Савченко Юлія Миколаївна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Менеджмент</Department>
+    <Course>4</Course>
+    <SettlementDate>2023-09-01</SettlementDate>
+  </Student>
+  <Student room="314" block="">
+    <FullName>Василенко Софія Андріївна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Маркетинг</Department>
+    <Course>3</Course>
+    <SettlementDate>2024-09-01</SettlementDate>
+  </Student>
+  <Student room="411" block="А">
+    <FullName>Салій Дарина Володимирівна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Фінанси і кредит</Department>
+    <Course>2</Course>
+    <SettlementDate>2025-09-01</SettlementDate>
+  </Student>
+  <Student room="322" block="">
+    <FullName>Пилипенко Христина Андріївна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Менеджмент</Department>
+    <Course>4</Course>
+    <SettlementDate>2023-09-01</SettlementDate>
+  </Student>
+  <Student room="311" block="Б">
+    <FullName>Левченко Світлана Павлівна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Маркетинг</Department>
+    <Course>1</Course>
+    <SettlementDate>2026-01-25</SettlementDate>
+  </Student>
+  <Student room="419" block="В">
+    <FullName>Сидоренко Антон Васильович</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Фінанси і кредит</Department>
+    <Course>4</Course>
+    <SettlementDate>2023-09-01</SettlementDate>
+  </Student>
+  <Student room="120" block="">
+    <FullName>Гриценко Маргарита Юріївна</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Менеджмент</Department>
+    <Course>1</Course>
+    <SettlementDate>2026-02-12</SettlementDate>
+  </Student>
+  <Student room="510" block="Г">
+    <FullName>Тимошенко Ігор Дмитрович</FullName>
+    <Faculty>ФЕМ</Faculty>
+    <Department>Маркетинг</Department>
+    <Course>2</Course>
+    <SettlementDate>2025-09-01</SettlementDate>
+  </Student>
+</Students>
