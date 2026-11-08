@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using opp_lab_2_zirolio_ctrl.Models;
 using opp_lab_2_zirolio_ctrl.Services;
 using opp_lab_2_zirolio_ctrl.Services.Export;
+using opp_lab_2_zirolio_ctrl.Services.SearchStrategies;
 
 namespace opp_lab_2_zirolio_ctrl.ViewModels;
 

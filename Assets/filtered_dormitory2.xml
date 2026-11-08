@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Students>
-  <Student room="402a" block="">
-    <FullName>Савченко Юлія Миколаївна</FullName>
-    <Faculty>ФЕМ</Faculty>
-    <Department>Менеджмент</Department>
-    <Course>4</Course>
-    <SettlementDate>2023-09-01</SettlementDate>
+<Dormitory>
+  <Student room="205" block="Б">
+    <FullName>Мельничук Іван Петрович</FullName>
+    <Faculty>АТ</Faculty>
+    <Department>Автомобільний транспорт</Department>
+    <Course>1</Course>
+    <SettlementDate>2026-03-02</SettlementDate>
   </Student>
-  <Student room="322" block="">
-    <FullName>Пилипенко Христина Андріївна</FullName>
-    <Faculty>ФЕМ</Faculty>
-    <Department>Менеджмент</Department>
-    <Course>4</Course>
-    <SettlementDate>2023-09-01</SettlementDate>
+  <Student room="330" block="В">
+    <FullName>Кузьменко Денис Сергійович</FullName>
+    <Faculty>АТ</Faculty>
+    <Department>Автомобільний транспорт</Department>
+    <Course>1</Course>
+    <SettlementDate>2026-01-18</SettlementDate>
   </Student>
-  <Student room="419" block="В">
-    <FullName>Сидоренко Антон Васильович</FullName>
-    <Faculty>ФЕМ</Faculty>
-    <Department>Фінанси і кредит</Department>
-    <Course>4</Course>
-    <SettlementDate>2023-09-01</SettlementDate>
-  </Student>
-</Students>
+</Dormitory>

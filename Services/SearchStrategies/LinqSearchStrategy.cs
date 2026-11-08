@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using opp_lab_2_zirolio_ctrl.Models;
 
-namespace opp_lab_2_zirolio_ctrl.Services;
+namespace opp_lab_2_zirolio_ctrl.Services.SearchStrategies;
 
 public class LinqSearchStrategy : IXmlSearchStrategy
 {
@@ -32,6 +32,6 @@ public class LinqSearchStrategy : IXmlSearchStrategy
                         SettlementDate = student.Element("SettlementDate")?.Value ?? string.Empty
                     };
 
-            return query.ToList();
+        return query.ToList();
     }
 }

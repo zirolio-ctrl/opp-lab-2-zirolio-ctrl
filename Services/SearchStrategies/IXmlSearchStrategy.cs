@@ -1,8 +1,7 @@
-
 using System.Collections.Generic;
 using opp_lab_2_zirolio_ctrl.Models;
 
-namespace opp_lab_2_zirolio_ctrl.Services;
+namespace opp_lab_2_zirolio_ctrl.Services.SearchStrategies;
 
 public interface IXmlSearchStrategy
 {

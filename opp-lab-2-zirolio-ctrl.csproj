@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests/**" />
+    <None Remove="Tests/**" />
+    <AvaloniaResource Remove="Tests/**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <Content Include="Assets\dormitory.xsl" Link="dormitory.xsl" CopyToOutputDirectory="PreserveNewest" />
     <None Update="client_secret.json">

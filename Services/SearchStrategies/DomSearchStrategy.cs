@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using opp_lab_2_zirolio_ctrl.Models;
 
-namespace opp_lab_2_zirolio_ctrl.Services;
+namespace opp_lab_2_zirolio_ctrl.Services.SearchStrategies;
 
 public class DomSearchStrategy : IXmlSearchStrategy
 {

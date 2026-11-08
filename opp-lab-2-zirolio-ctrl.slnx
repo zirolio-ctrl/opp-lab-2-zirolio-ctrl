@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/opp-lab-2-zirolio-ctrl.Tests.csproj" />
+  </Folder>
+  <Project Path="opp-lab-2-zirolio-ctrl.csproj" />
+</Solution>
